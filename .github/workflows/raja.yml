@@ -1,0 +1,21 @@
+name: CICD
+on: [ push ]
+jobs:
+  Deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        token: ${{ secrets.GIT_TOKEN }}
+        script: |
+          cd /opt/Socialswag-CICD-PIPELINE
+          echo ${{ secrets.PASSWORD }} | sudo -S git checkout main
+          echo ${{ secrets.PASSWORD }} | sudo -S git pull https://Ram5783:${{ secrets.GIT_TOKEN }}@github.com/SocialSwagHQ/Socialswag-CICD-PIPELINE.git
+          echo ${{ secrets.PASSWORD }} | sudo -S chmod +x /opt/Socialswag-CICD-PIPELINE/test.sh
+          echo ${{ secrets.PASSWORD }} | sudo -S /opt/Socialswag-CICD-PIPELINE/test.sh
