@@ -14,7 +14,7 @@ jobs:
         port: ${{ secrets.PORT }}
         #token: ${{ secrets.GIT_TOKEN }}
         script: |
-          cd /tmp
+          cd /tmp/github
           echo ${{ secrets.PASSWORD }} | sudo -S git checkout main
           echo ${{ secrets.PASSWORD }} | sudo -S git pull https://github.com/rajac123/rajac123.git
           #echo ${{ secrets.PASSWORD }} | sudo -S chmod +x /opt/Socialswag-CICD-PIPELINE/test.sh
